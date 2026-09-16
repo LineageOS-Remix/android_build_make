@@ -497,17 +497,8 @@ function lunch()
 
     if ! check_product $product $release
     then
-        # if we can't find a product, try to grab it off the LineageOS GitHub
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/lineage/build/tools/roomservice.py $product
-        cd - > /dev/null
-        check_product $product $release
-    else
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/lineage/build/tools/roomservice.py $product true
-        cd - > /dev/null
+        echo "Cannot locate config for product \"$product\". Please check PRODUCT_MAKEFILES."
+        return 1
     fi
 
     _lunch_meat $product $release $variant
